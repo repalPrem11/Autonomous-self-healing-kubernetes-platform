@@ -23,5 +23,15 @@ pipeline {
         	sh 'ls -la payment-service'
     	     }
         }
+	stage('Build Docker Image') {
+    	     steps {
+        	dir('payment-service') {
+            	   sh '''
+                       docker build \
+                       -t payment-service:${BUILD_NUMBER} .
+            '''
+        	}
+    	   }
+	}
     }
 }
