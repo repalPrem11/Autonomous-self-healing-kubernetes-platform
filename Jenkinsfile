@@ -16,5 +16,12 @@ pipeline {
                 sh 'ls -R'
             }
         }
+	stage('Verify Docker Context') {
+    	     steps {
+        	sh 'pwd'
+        	sh 'ls -la'
+        	sh 'ls -la payment-service'
+    	     }
+        }
     }
 }
