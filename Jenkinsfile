@@ -49,5 +49,15 @@ pipeline {
         '''
     }
 }
+	 stage('Tag Docker Image') {
+    steps {
+        sh '''
+            docker tag payment-service:${BUILD_NUMBER} \
+            ${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}:${BUILD_NUMBER}
+        '''
+
+        sh 'docker images'
+    }
+}
     }
 }
