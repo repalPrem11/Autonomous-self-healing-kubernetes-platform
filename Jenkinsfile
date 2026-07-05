@@ -59,5 +59,13 @@ pipeline {
         sh 'docker images'
     }
 }
+	 stage('Push Docker Image') {
+    steps {
+        sh '''
+            docker push \
+            ${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}:${BUILD_NUMBER}
+        '''
+    }
+}
     }
 }
