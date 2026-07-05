@@ -1,6 +1,12 @@
 pipeline {
     agent any
 
+    environment {
+        AWS_REGION = 'ap-south-1'
+        ACCOUNT_ID = '524178179120'
+        ECR_REPOSITORY = 'payment-service'
+    }
+
     stages {
 
         stage('Checkout') {
@@ -33,5 +39,15 @@ pipeline {
         	}
     	   }
 	}
+	 stage('Login to Amazon ECR') {
+    steps {
+        sh '''
+            aws ecr get-login-password --region ${AWS_REGION} | \
+            docker login \
+            --username AWS \
+            --password-stdin ${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
+        '''
+    }
+}
     }
 }
