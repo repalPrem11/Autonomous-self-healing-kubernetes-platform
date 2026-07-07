@@ -35,3 +35,15 @@ def payment():
         "currency": "INR",
         "status": "SUCCESS"
     }
+
+@app.get("/stress")
+def stress():
+    total = 0
+
+    for i in range(100000000):
+        total += i
+
+    return {
+        "status": "completed",
+        "result": total
+    }
