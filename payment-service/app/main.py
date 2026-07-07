@@ -18,7 +18,7 @@ def home():
     }
 
 
-@app.get("/healthz")
+@app.get("/health")
 def health():
     return {
         "status": "Healthy",
