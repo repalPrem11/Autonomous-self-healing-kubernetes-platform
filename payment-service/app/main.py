@@ -12,8 +12,9 @@ def home():
     return {
         "application": "Self-Healing Platform",
         "service": "Payment Service",
-        "version": "1.0",
-        "status": "Running"
+        "version": "2.0",
+        "status": "Running",
+        "message": "Rolling update successful!"
     }
 
 
