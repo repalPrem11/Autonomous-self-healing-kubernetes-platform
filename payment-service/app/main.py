@@ -40,7 +40,7 @@ def payment():
 def stress():
     total = 0
 
-    for i in range(100000000):
+    for i in range(5000000000):
         total += i
 
     return {
