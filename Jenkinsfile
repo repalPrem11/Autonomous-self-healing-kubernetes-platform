@@ -67,5 +67,15 @@ pipeline {
         '''
     }
 }
+         stage('Update Kubernetes Manifest') {
+    steps {
+        sh '''
+            sed -i "s|image: .*|image: ${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}:${BUILD_NUMBER}|" k8s/deployment.yaml
+
+            echo "Updated deployment.yaml:"
+            grep image k8s/deployment.yaml
+        '''
+    }
+}
     }
 }
