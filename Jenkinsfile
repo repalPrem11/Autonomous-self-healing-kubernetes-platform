@@ -77,5 +77,23 @@ pipeline {
         '''
     }
 }
+stage('Commit and Push Manifest') {
+    steps {
+        withCredentials([string(credentialsId: 'git-token', variable: 'GITHUB_TOKEN')]) {
+            sh '''
+                git config user.name "Jenkins"
+                git config user.email "jenkins@example.com"
+
+                git add k8s/deployment.yaml
+
+                git commit -m "Update image to ${BUILD_NUMBER}" || echo "Nothing to commit"
+
+                git remote set-url origin https://${GITHUB_TOKEN}@github.com/repalPrem11/Autonomous-self-healing-kubernetes-platform.git
+
+                git push origin main
+            '''
+        }
+    }
+}
     }
 }
