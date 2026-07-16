@@ -88,16 +88,28 @@ stage('Commit and Push Manifest') {
                 git config user.name "Jenkins"
                 git config user.email "jenkins@example.com"
 
+                git remote set-url origin https://${GIT_USERNAME}:${GIT_TOKEN}@github.com/repalPrem11/Autonomous-self-healing-kubernetes-platform.git
+
+                echo "========== GIT STATUS =========="
+                git status
+
+                echo "========== CURRENT BRANCH =========="
+                git branch -a
+
+                echo "========== CURRENT COMMIT =========="
+                git rev-parse --abbrev-ref HEAD
+
+                echo "========== REMOTES =========="
+                git remote -v
+
                 git add k8s/deployment.yaml
 
                 git commit -m "Update image to ${BUILD_NUMBER}" || echo "Nothing to commit"
-
-                git remote set-url origin https://${GIT_USERNAME}:${GIT_TOKEN}@github.com/repalPrem11/Autonomous-self-healing-kubernetes-platform.git
 
                 git push origin main
             '''
         }
     }
 }
-    }
+}
 }
