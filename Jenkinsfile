@@ -90,23 +90,15 @@ stage('Commit and Push Manifest') {
 
                 git remote set-url origin https://${GIT_USERNAME}:${GIT_TOKEN}@github.com/repalPrem11/Autonomous-self-healing-kubernetes-platform.git
 
-                echo "========== GIT STATUS =========="
-                git status
+                git fetch origin
 
-                echo "========== CURRENT BRANCH =========="
-                git branch -a
-
-                echo "========== CURRENT COMMIT =========="
-                git rev-parse --abbrev-ref HEAD
-
-                echo "========== REMOTES =========="
-                git remote -v
+                git checkout -B main origin/main
 
                 git add k8s/deployment.yaml
 
                 git commit -m "Update image to ${BUILD_NUMBER}" || echo "Nothing to commit"
 
-                git push origin main
+                git push origin HEAD:main
             '''
         }
     }
