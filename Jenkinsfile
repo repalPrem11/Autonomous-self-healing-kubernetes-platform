@@ -79,7 +79,11 @@ pipeline {
 }
 stage('Commit and Push Manifest') {
     steps {
-        withCredentials([string(credentialsId: 'git-token', variable: 'GITHUB_TOKEN')]) {
+        withCredentials([usernamePassword(
+            credentialsId: 'git-token',
+            usernameVariable: 'GIT_USERNAME',
+            passwordVariable: 'GIT_TOKEN'
+        )]) {
             sh '''
                 git config user.name "Jenkins"
                 git config user.email "jenkins@example.com"
@@ -88,7 +92,7 @@ stage('Commit and Push Manifest') {
 
                 git commit -m "Update image to ${BUILD_NUMBER}" || echo "Nothing to commit"
 
-                git remote set-url origin https://${GITHUB_TOKEN}@github.com/repalPrem11/Autonomous-self-healing-kubernetes-platform.git
+                git remote set-url origin https://${GIT_USERNAME}:${GIT_TOKEN}@github.com/repalPrem11/Autonomous-self-healing-kubernetes-platform.git
 
                 git push origin main
             '''
